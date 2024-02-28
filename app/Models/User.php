@@ -48,4 +48,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
         {
             return $this->hasMany(Type_of_activity::class);
         }
+        public function activities(): HasMany
+        {
+            return $this->hasMany(Activity::class);
+        }
     }

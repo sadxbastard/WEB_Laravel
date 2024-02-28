@@ -1,7 +1,8 @@
 <?php
-
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,5 +20,19 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return view('hello', ['title' => 'Hello World!']);
 });
+
 Route::get('/user', [UserController::class, 'index']);
+
 Route::get('/user/{id}', [UserController::class, 'show']);
+
+Route::get('/types_of_activity', [Type_of_activityController::class, 'index']);
+
+Route::get('/type_of_activity/create', [Type_of_activityController::class, 'create']);
+
+Route::post('/type_of_activity', [Type_of_activityController::class, 'store']);
+
+Route::get('/type_of_activity/edit/{id}', [Type_of_activityController::class, 'edit']);
+
+Route::post('/type_of_activity/update/{id}', [Type_of_activityController::class, 'update']);
+
+Route::get("/type_of_activity/destroy/{id}", [Type_of_activityController::class, 'destroy']);
