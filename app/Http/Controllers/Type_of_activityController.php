@@ -11,10 +11,11 @@ class Type_of_activityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $perpage = $request->perpage ?? 2;
         return view('types_of_activity', [
-            'types_of_activity' => Type_of_activity::with('user')->get()->all()
+            'types_of_activity' => Type_of_activity::paginate($perpage)->withQueryString()
         ]);
     }
 

@@ -47,6 +47,8 @@
         @endforeach
     </table>
     <br>
+    {{ $types_of_activity->links() }}
+    <br>
     <a href="type_of_activity/create" class="button">Создать</a>
 </body>
 </html>
