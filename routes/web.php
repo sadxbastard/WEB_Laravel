@@ -27,12 +27,22 @@ Route::get('/user/{id}', [UserController::class, 'show']);
 
 Route::get('/types_of_activity', [Type_of_activityController::class, 'index']);
 
-Route::get('/type_of_activity/create', [Type_of_activityController::class, 'create']);
+Route::get('/type_of_activity/create', [Type_of_activityController::class, 'create'])->middleware('auth');
 
 Route::post('/type_of_activity', [Type_of_activityController::class, 'store']);
 
-Route::get('/type_of_activity/edit/{id}', [Type_of_activityController::class, 'edit']);
+Route::get('/type_of_activity/edit/{id}', [Type_of_activityController::class, 'edit'])->middleware('auth');
 
-Route::post('/type_of_activity/update/{id}', [Type_of_activityController::class, 'update']);
+Route::post('/type_of_activity/update/{id}', [Type_of_activityController::class, 'update'])->middleware('auth');
 
-Route::get("/type_of_activity/destroy/{id}", [Type_of_activityController::class, 'destroy']);
+Route::get("/type_of_activity/destroy/{id}", [Type_of_activityController::class, 'destroy'])->middleware('auth');
+
+Route::get('/login', [LoginController::class, 'login']);
+
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::post('/auth', [LoginController::class, 'authenticate']);
+
+Route::get('/error', function(){
+    return view('error', ['message' => session('message')]);
+});

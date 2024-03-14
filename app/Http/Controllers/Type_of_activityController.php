@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type_of_activity;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class Type_of_activityController extends Controller
 {
@@ -16,6 +17,7 @@ class Type_of_activityController extends Controller
         $perpage = $request->perpage ?? 2;
         return view('types_of_activity', [
             'types_of_activity' => Type_of_activity::paginate($perpage)->withQueryString()
+            // 'types_of_activity' => Type_of_activity::paginate(2)
         ]);
     }
 
@@ -86,7 +88,12 @@ class Type_of_activityController extends Controller
      */
     public function destroy(string $id)
     {
-        Type_of_activity::destroy($id);
-        return redirect('/types_of_activity');
+    if (!Gate::allows('destroy-type_of_activity', Type_of_activity::all()->where('id', $id)->first())) {
+        return redirect('/error')->with('message',
+            'У вас нет доступа к удалению данного вида активности, так как он не является вашим ' . $id);
+    }
+
+    Type_of_activity::destroy($id);
+    return redirect('/types_of_activity');
     }
 }
