@@ -30,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('destroy-type_of_activity', function(User $user, Type_of_activity $type_of_activity){
             return $user->id == $type_of_activity->user_id;
         });
+        Gate::define('edit-type_of_activity', function(User $user, Type_of_activity $type_of_activity){
+            return $user->id == $type_of_activity->user_id;
+        });
     }
 }
